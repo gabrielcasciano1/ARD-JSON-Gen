@@ -7,6 +7,7 @@ import os
 def make_dir(dir_name):
     if not os.path.exists(dir_name):
         os.mkdir(dir_name)
+        print(f"Directory {dir_name} has been created")
     else:
         print(f"Directory {dir_name} already exists, exitting . . .")
         exit(0)
@@ -53,7 +54,6 @@ if __name__ == "__main__":
     make_dir(dir_name) # create the directory
 
     # Collect paramters from user
-    print("JSON Generator \n")
     print("Enter the number of JSON to generate.")
     json_count = int(input("The number X entered will geneate X correct, X wrong dates, X wrong UID, X wrong Areas, X wrong picklists: "))
     area_count = int(input("Enter the number of areas: "))
