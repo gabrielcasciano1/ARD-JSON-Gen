@@ -40,11 +40,10 @@ def generate_json_wrong_list(filename, area, uid, listLen, dt):
         "UID": uid,
         "Datetime": dt,
         "Picklist": random.sample(range(1, listLen + 1), listLen),
-        "Picklistlength": random.randint(0, listLen)
+        "Picklistlength": random.randint(0, listLen**2)
     }
 
     write_file(filename, json_data)
-
 
 if __name__ == "__main__":
 
@@ -56,7 +55,7 @@ if __name__ == "__main__":
     # Collect paramters from user
     print("Enter the number of JSON to generate.")
     json_count = int(input("The number X entered will geneate X correct, X wrong dates, X wrong UID, X wrong Areas, X wrong picklists: "))
-    area_count = int(input("Enter the number of areas: "))
+    area_code = int(input("Enter the area number: "))
     uid_start = int(input("Enter the UID start number: "))
     maxListLen = int(input("Enter the max pick list length: "))
 
@@ -65,32 +64,32 @@ if __name__ == "__main__":
 
     # Correct data
     for i in range(0, int(round(json_count, 0))):
-        generate_json(f"{dir_name}/json_{file_count}.json", random.randint(1, area_count), uid_start + uid_count, random.randint(1, maxListLen), datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+        generate_json(f"{dir_name}/json_{file_count:02d}.json", area_code, uid_start + uid_count, random.randint(1, maxListLen), datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
         uid_count += 1
         file_count += 1
 
     # Wrong dates
     for i in range(0, int(round(json_count, 0))):
-        date = datetime.now() + timedelta(days=random.randint(-10, 10))
-        generate_json(f"{dir_name}/json_{file_count}.json", random.randint(1, area_count), uid_start + uid_count, random.randint(1, maxListLen), date.strftime("%Y-%m-%d-%H-%M-%S"))
+        date = datetime.now() + timedelta(days=random.randint(-30, 30))
+        generate_json(f"{dir_name}/json_{file_count:02d}.json", area_code, uid_start + uid_count, random.randint(1, maxListLen), date.strftime("%Y-%m-%d-%H-%M-%S"))
         uid_count += 1
         file_count += 1
 
     # Wrong UID
     for i in range(0, int(round(json_count, 0))):
-        generate_json(f"{dir_name}/json_{file_count}.json", random.randint(1, area_count), random.randint(1, uid_start + uid_count), random.randint(1, maxListLen), datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+        generate_json(f"{dir_name}/json_{file_count:02d}.json", area_code, random.randint(1, uid_start + uid_count), random.randint(1, maxListLen), datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
         uid_count += 1
         file_count += 1
 
     # Wrong Area
     for i in range(0, int(round(json_count, 0))):
-        generate_json(f"{dir_name}/json_{file_count}.json", random.randint(-area_count*2, area_count*2), uid_start + uid_count, random.randint(1, maxListLen), datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+        generate_json(f"{dir_name}/json_{file_count:02d}.json", random.randint(-area_code**2, area_code**2), uid_start + uid_count, random.randint(1, maxListLen), datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
         uid_count += 1
         file_count += 1
 
     # Wrong picklists
     for i in range(0, int(round(json_count, 0))):
-        generate_json_wrong_list(f"{dir_name}/json_{file_count}.json", random.randint(1, area_count), uid_start + uid_count, random.randint(1, maxListLen), datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+        generate_json_wrong_list(f"{dir_name}/json_{file_count:02d}.json", area_code, uid_start + uid_count, random.randint(1, maxListLen), datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
         uid_count += 1
         file_count += 1
     
